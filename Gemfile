@@ -48,7 +48,6 @@ group :development do
   gem 'better_errors', '~> 2.9', '>= 2.9.1'
   gem 'binding_of_caller'
   gem 'guard-livereload', '~> 2.5', '>= 2.5.2'
-  gem 'rack-livereload', '~> 0.3.17'
 end
 
 group :test do
