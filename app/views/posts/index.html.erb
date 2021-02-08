@@ -9,7 +9,7 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <strong><%= post.author.name %></strong><small> <%= time_ago_in_words(post.created_at) %> ago</small>
+            <strong><%= link_to "#{post.author.name}", user_path(post.author) %></strong><small> <%= time_ago_in_words(post.created_at) %> ago</small>
             <br>
               <%= post.content %>
             <br>
