@@ -25,11 +25,16 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <small>
+              <% if post.liked_by?(current_user) %>
+                <%= form_tag like_path(post.likes.find_by(user_id: current_user.id)), method: :delete do %>
+                  <%= submit_tag 'Remove like', class: 'button is-danger is-light is-small' %>
+                <% end %>
+              <% else %>
                 <%= form_tag likes_path, method: :post do %>
                   <%= hidden_field_tag :post_id, post.id %> 
-                  <small><%= submit_tag 'Like' %></small>
+                  <%= submit_tag 'Like post', class: 'button is-success is-light is-small' %>
                 <% end %>
+              <% end %>
             </div>
             <div class="level-item">
               <small><a>Comment</a></small>
