@@ -9,17 +9,9 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <strong><%= link_to "#{post.author.name}", user_path(post.author) %></strong><small> <%= time_ago_in_words(post.created_at) %> ago</small>
+            <strong><%= link_to "#{post.author.name}", user_path(post.author) %></strong><small> · <%= time_ago_in_words(post.created_at) %> ago · <%= pluralize(post.likes.size, 'like') %> · 0 comments</small>
             <br>
               <%= post.content %>
-              <br>
-              Liked by
-              <ul>
-                <% post.likes.each do |like| %>
-                  <li><%= like.user.name %></li>
-                <% end %>
-              </ul>
-            <br>
           </p>
         </div>
         <div class="level">
