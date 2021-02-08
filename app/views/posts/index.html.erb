@@ -12,13 +12,24 @@
             <strong><%= link_to "#{post.author.name}", user_path(post.author) %></strong><small> <%= time_ago_in_words(post.created_at) %> ago</small>
             <br>
               <%= post.content %>
+              <br>
+              Liked by
+              <ul>
+                <% post.likes.each do |like| %>
+                  <li><%= like.user.name %></li>
+                <% end %>
+              </ul>
             <br>
           </p>
         </div>
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <small><a>Like</a></small>
+              <small>
+                <%= form_tag likes_path, method: :post do %>
+                  <%= hidden_field_tag :post_id, post.id %> 
+                  <small><%= submit_tag 'Like' %></small>
+                <% end %>
             </div>
             <div class="level-item">
               <small><a>Comment</a></small>
