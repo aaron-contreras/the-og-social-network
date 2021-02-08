@@ -6,11 +6,26 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.delete_all
 Post.delete_all
-user = User.create!(name: 'Aaron Contreras',
+User.delete_all
+
+test_user = User.create!(name: 'Example',
              email: 'example@example.com',
              password: 'foobar',
              password_confirmation: 'foobar')
-post = user.posts.build(content: 'My first post')
-post.save
+post = test_user.posts.build(content: Faker::Movies::HitchhikersGuideToTheGalaxy.quote)
+post.save!
+
+10.times do
+  password = Faker::Alphanumeric.alpha(number: 7)
+
+  User.create!(name: Faker::Name.unique.name,
+               email: Faker::Internet.email,
+               password: password,
+               password_confirmation: password)
+end
+
+User.all.each do |user|
+  post = user.posts.build(content: Faker::Movies::HitchhikersGuideToTheGalaxy.quote)
+  post.save!
+end

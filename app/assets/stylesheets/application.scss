@@ -22,3 +22,8 @@ body {
 .notification:not(:last-child) {
   margin-bottom: 0;
 }
+
+.divider {
+  height: 1px;
+  background: lightgrey;
+}

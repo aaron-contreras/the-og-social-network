@@ -1,6 +1,32 @@
 <% @posts.each do |post| %>
-  <%= post.content %>
-  <%= post.author.name %>
-  <%= post.created_at %>
+  <div class="box">
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="https://bulma.io/images/placeholders/128x128.png">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong><%= post.author.name %></strong><small> <%= time_ago_in_words(post.created_at) %> ago</small>
+            <br>
+              <%= post.content %>
+            <br>
+          </p>
+        </div>
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <small><a>Like</a></small>
+            </div>
+            <div class="level-item">
+              <small><a>Comment</a></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
 <% end %>
 
