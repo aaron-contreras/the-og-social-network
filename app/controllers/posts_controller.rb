@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.includes(:author, :likes).recent
+    @posts = Post.includes(:author, :likes, :comments).recent
   end
 
   def new
