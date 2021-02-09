@@ -20,6 +20,8 @@ class Post < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'user_id'
   has_many :likes
 
+  validates_presence_of :content
+
   def liked_by?(user)
     likes.map(&:user).include?(user)
   end
