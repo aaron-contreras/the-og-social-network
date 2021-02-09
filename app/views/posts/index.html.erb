@@ -8,31 +8,36 @@
       </figure>
       <div class="media-content">
         <div class="content">
-          <p>
-            <strong><%= link_to "#{post.feed_author_name(current_user)}", user_path(post.author) %></strong><small> · <%= time_ago_in_words(post.created_at) %> ago · <%= pluralize(post.likes.size, 'like') %> · 0 comments</small>
-            <br>
-              <%= post.content %>
-          </p>
+          <strong><%= link_to "#{post.feed_author_name(current_user)}", user_path(post.author) %></strong><small> · <%= time_ago_in_words(post.created_at) %> ago · <%= pluralize(post.likes.size, 'like') %> · <%= pluralize(post.comments.size, 'comment') %></small>
+
+          <% if post.liked_by?(current_user) %>
+            <%= form_tag post_like_path(post, post.likes.find_by(user: current_user)), method: :delete,
+                         style: 'display: inline !important;' do %>
+              <%= submit_tag 'Remove like', class: 'button is-danger is-light is-small' %>
+            <% end %>
+          <% else %>
+            <%= form_tag post_likes_path(post), method: :post, style: 'display: inline !important;' do %>
+              <%= hidden_field_tag :post_id, post.id %> 
+              <%= submit_tag 'Like post', class: 'button is-success is-light is-small' %>
+            <% end %>
+          <% end %>
+          <br>
+          <%= post.content %>
         </div>
-        <div class="level">
-          <div class="level-left">
-            <div class="level-item">
-              <% if post.liked_by?(current_user) %>
-                <%= form_tag post_like_path(post, post.likes.find_by(user: current_user)), method: :delete do %>
-                  <%= submit_tag 'Remove like', class: 'button is-danger is-light is-small' %>
-                <% end %>
-              <% else %>
-                <%= form_tag post_likes_path(post), method: :post do %>
-                  <%= hidden_field_tag :post_id, post.id %> 
-                  <%= submit_tag 'Like post', class: 'button is-success is-light is-small' %>
-                <% end %>
-              <% end %>
+        <%= form_tag post_comments_path(post), method: :post do %>
+          <%= hidden_field_tag 'comment[post_id]', post.id %>
+          <%= text_area_tag 'comment[content]', nil, placeholder: 'Say something about it...', class: 'textarea', rows: 1, required: 'required' %>
+          <div class="level is-mobile" style="padding: 10px 0;">
+            <div class="level-left">
             </div>
-            <div class="level-item">
-              <small><a>Comment</a></small>
+            <div class="level-right">
+              <div class="level-item">
+                <%= submit_tag 'Comment', class: 'button is-link is-light is-small' %>
+
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
     </article>
   </div>
