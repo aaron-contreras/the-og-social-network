@@ -22,6 +22,7 @@ class Post < ApplicationRecord
 
   validates_presence_of :content
 
+  scope :recent, -> { order(created_at: :desc) }
   def liked_by?(user)
     likes.map(&:user).include?(user)
   end
