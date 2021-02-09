@@ -1,0 +1,1 @@
+<strong><%= link_to "#{post.feed_author_name(current_user)}", user_path(post.author) %></strong><small>&nbsp;· <%= time_ago_in_words(post.created_at) %> ago · <%= link_to "#{pluralize(post.likes.size, 'like')}", post_likes_path(post) %> · <%= link_to "#{pluralize(post.comments.size, 'comment')}", post_comments_path(post) %></small>

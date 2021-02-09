@@ -1,6 +1,7 @@
-<% @posts.each do |post| %>
-  <div class="box">
-    <%= render "posts/post", post: post %>
-  </div>
-<% end %>
-
+<section class="section">
+  <% @posts.each do |post| %>
+    <div class="box">
+      <%= render "posts/post", post: post %>
+    </div>
+  <% end %>
+</section>

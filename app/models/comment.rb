@@ -24,4 +24,8 @@ class Comment < ApplicationRecord
   belongs_to :post
 
   validates_presence_of :content
+
+  def feed_author_name(logged_in_user)
+    logged_in_user == user ? 'You' : user.name
+  end
 end
