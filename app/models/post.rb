@@ -23,7 +23,12 @@ class Post < ApplicationRecord
   validates_presence_of :content
 
   scope :recent, -> { order(created_at: :desc) }
+
   def liked_by?(user)
     likes.map(&:user).include?(user)
+  end
+
+  def feed_author_name(logged_in_user)
+    author == logged_in_user ? 'You' : author.name
   end
 end

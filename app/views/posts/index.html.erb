@@ -9,7 +9,7 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <strong><%= link_to "#{post.author.name}", user_path(post.author) %></strong><small> · <%= time_ago_in_words(post.created_at) %> ago · <%= pluralize(post.likes.size, 'like') %> · 0 comments</small>
+            <strong><%= link_to "#{post.feed_author_name(current_user)}", user_path(post.author) %></strong><small> · <%= time_ago_in_words(post.created_at) %> ago · <%= pluralize(post.likes.size, 'like') %> · 0 comments</small>
             <br>
               <%= post.content %>
           </p>
