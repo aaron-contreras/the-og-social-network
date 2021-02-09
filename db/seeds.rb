@@ -6,7 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Post.delete_all
 User.delete_all
 
 test_user = User.create!(name: 'Example',
@@ -29,3 +28,12 @@ User.all.each do |user|
   post = user.posts.build(content: Faker::Movies::HitchhikersGuideToTheGalaxy.quote)
   post.save!
 end
+
+Post.all.each do |post|
+  User.all.each do |user|
+    like = Like.new(user: user, post: post)
+    like.save!
+  end
+end
+
+
