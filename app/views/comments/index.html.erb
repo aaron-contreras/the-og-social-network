@@ -5,7 +5,7 @@
     <p class="title has-text-dark is-5">
       Comments
     </p>
-    <% @post.comments.each do |comment| %>
+    <% @post.comments.recent.each do |comment| %>
       <div class="box">
         <div class="level">
           <div class="level-left">

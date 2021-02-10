@@ -23,6 +23,8 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :post
 
+  scope :recent, -> { order(created_at: :desc) }
+
   validates_presence_of :content
 
   def feed_author_name(logged_in_user)
