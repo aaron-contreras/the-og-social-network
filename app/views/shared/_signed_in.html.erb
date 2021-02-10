@@ -4,10 +4,25 @@
 
   <div class="navbar-item has-dropdown is-hoverable">
     <a class="navbar-link">
-      More
+      Notifications
     </a>
 
     <div class="navbar-dropdown">
+      <% current_user.received_requests.each do |request| %>
+        <div class="navbar-item">
+          <%= request.sender.name %> has sent a friend request
+          <%= form_tag friendships_path do %>
+            <%= hidden_field_tag :friend_request_id, request.id %>
+            <%= hidden_field_tag :friend_id, request.sender.id %>
+            <%= submit_tag 'Add friend' %>
+          <% end %>
+          <%= form_tag friendships_path do %>
+            <%= hidden_field_tag :friend_request_id, request.id %>
+            <%= hidden_field_tag :friend_id, request.sender.id %>
+            <%= submit_tag 'Add friend' %>
+          <% end %>
+        </div>
+      <% end %>
       <a class="navbar-item">
         About
       </a>
@@ -29,7 +44,7 @@
   <div class="navbar-item">
     <div class="buttons">
       <%= link_to 'Sign out', destroy_user_session_path, method: :delete,
-                              class: 'button is-link is-light' %>
+                              class: 'button' %>
     </div>
   </div>
 </div>

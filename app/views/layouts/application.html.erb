@@ -10,17 +10,41 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="has-background-light">
     <% if notice %>
-      <p class="notification is-primary notice"><%= notice %></p>
+      <p class="notification is-warning notice"><%= notice %></p>
     <% end %>
     <% if alert %>
       <p class="notification is-danger alert"><%= alert %></p>
     <% end %>
     <%= render "shared/navbar" %>
-    <div class="container">
-      <%= yield %>
-    </div>
+      <section class="section">
+        <% if user_signed_in? %>
+          <div class="columns">
+            <div class="column"></div>
+            <div class="column is-8">
+              <%= yield %>
+            </div>
+            <div class="column">
+              <aside class="menu">
+                <p class="menu-label">Friends</p>
+                <ul class="menu-list">
+                  <% current_user.friends.each do |friend| %>
+                    <li><%= link_to friend.name, user_path(friend), class: 'has-text-link' %></li>
+                  <% end %>
+                </ul>
+              </aside>
+            </div>
+          </div>
+        <% else %>
+          <div class="columns">
+            <div class="column"></div>
+            <div class="column is-8">
+              <%= yield %>
+            </div>
+            <div class="column"></div>
+        <% end %>
+      </section>
     <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

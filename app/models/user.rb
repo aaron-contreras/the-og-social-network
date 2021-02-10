@@ -18,10 +18,17 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  validates_presence_of :name
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :posts, dependent: :destroy
+  has_many :sent_requests, class_name: 'FriendRequest', foreign_key: 'sender_id'
+  has_many :received_requests, class_name: 'FriendRequest', foreign_key: 'recipient_id'
+  has_many :friendships
+  has_many :friends, through: :friendships
+
+  validates_presence_of :name
+
+  scope :not_including, ->(user) { where.not(id: user.id) }
 end

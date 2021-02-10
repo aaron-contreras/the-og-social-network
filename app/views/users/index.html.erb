@@ -1,1 +1,49 @@
-Test
+<p class="title is-5">Registered users</p>
+<div class="columns is-multiline">
+  <% @users.each do |user| %>
+    <div class="column is-one-third-desktop is-one-half-tablet">
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4"><%= user.name %></p>
+              <p class="subtitle is-6">
+                <% if current_user.friends.include?(user) %>
+                  <span class="tag is-success">Friend</span>
+                <% else %>
+                  <span class="tag is-light">No relationship</span>
+                <% end %>
+              </p>
+            </div>
+          </div>
+    
+        </div>
+        <div class="card-footer">
+          <div class="card-footer-item">
+            <%= link_to 'View profile', user_path(user) %>
+          </div>
+            <% unless current_user.friends.include?(user) %>
+          <div class="card-footer-item">
+              <% if current_user.sent_requests.find_by(recipient: user) %>
+                <%= form_tag friend_request_path(current_user.sent_requests.find_by(recipient: user)), method: :delete do %>
+                  <%= hidden_field_tag :friend_request_id, current_user.sent_requests.find_by(recipient: user).id %>
+                  <%= submit_tag 'Cancel friend request', class: 'button is-danger is-light is-small' %>
+                <% end %>
+              <% else %>
+                <%= form_tag friend_requests_path, method: :post do %>
+                  <%= hidden_field_tag :recipient_id, user.id %>
+                  <%= submit_tag 'Send friend request', class: 'button is-success is-light is-small' %>
+                <% end %>
+              <% end %>
+          </div>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
