@@ -33,4 +33,5 @@ class User < ApplicationRecord
   validates_presence_of :name
 
   scope :not_including, ->(user) { where.not(id: user.id) }
+  scope :friends_of, ->(user) { where(id: Friendship.where(user: user).pluck(:friend_id)) }
 end

@@ -1,4 +1,9 @@
 class FriendshipsController < ApplicationController
+  def index
+    @users = User.friends_of(current_user)
+    render 'users/index'    
+  end
+
   def create
     friend = User.find(params[:friend_id])
     friendship_1 = current_user.friendships.build(friend: friend) 
@@ -14,9 +19,5 @@ class FriendshipsController < ApplicationController
     end
 
     redirect_back(fallback_location: root_path)
-  end
-
-  def destroy
-
   end
 end
