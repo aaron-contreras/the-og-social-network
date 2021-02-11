@@ -6,6 +6,7 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string
+#  profile_picture        :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -27,6 +28,7 @@ class User < ApplicationRecord
   has_many :received_requests, class_name: 'FriendRequest', foreign_key: 'recipient_id'
   has_many :friendships
   has_many :friends, through: :friendships
+  mount_uploader :profile_picture, ProfilePictureUploader
 
   validates_presence_of :name
 
