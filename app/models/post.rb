@@ -26,7 +26,7 @@ class Post < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
 
   def liked_by?(user)
-    likes.map(&:user).include?(user)
+    likes.find_by(user: user).present?
   end
 
   def feed_author_name(logged_in_user)
