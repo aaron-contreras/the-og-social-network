@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <%= image_tag @user.profile_picture_url(:thumb).to_s %>
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-4"><%= @user.name %></p>
+        <p class="subtitle is-6">joined <%= time_ago_in_words(@user.created_at) %> ago
+          <% unless current_user == @user %>
+            <% if current_user.friends.include?(@user) %>
+              <span class="tag is-success">Friend</span>
+            <% else %>
+              <span class="tag is-light">No relationship</span>
+            <% end %>
+          <% end %>
+        </p>
+        <%= link_to pluralize(@user.friends.size, 'friend'), friendships_path %>
+      </div>
+    </div>
+
+  </div>
+  <% unless current_user == @user %>
+    <div class="card-footer">
+      <% unless current_user.friends.include?(@user) %>
+        <div class="card-footer-item">
+          <% if current_user.sent_requests.find_by(recipient: @user) %>
+            <%= form_tag friend_request_path(current_user.sent_requests.find_by(recipient: @user)), method: :delete do %>
+              <%= hidden_field_tag :friend_request_id, current_user.sent_requests.find_by(recipient: @user).id %>
+              <%= submit_tag 'Cancel friend request', class: 'button is-danger is-light is-small' %>
+            <% end %>
+          <% else %>
+            <%= form_tag friend_requests_path, method: :post do %>
+              <%= hidden_field_tag :recipient_id, @user.id %>
+              <%= submit_tag 'Send friend request', class: 'button is-success is-light is-small' %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<section class="section">
+  <h2 class="title is-5">Feed (<%= pluralize(@user.posts.size, 'post') %>)</h2>
+  <% @user.posts.each do |post| %>
+    <div class="box">
+      <%= render "posts/post", post: post %>
+    </div>
+  <%end %>
+</section>
