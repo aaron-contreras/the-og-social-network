@@ -24,7 +24,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
+         :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
   has_many :posts, dependent: :destroy
   has_many :sent_requests, class_name: 'FriendRequest', foreign_key: 'sender_id'
@@ -43,7 +43,6 @@ class User < ApplicationRecord
       user.email = provider_data.info.email
       user.name = provider_data.info.name
       user.remote_profile_picture_url = provider_data.info.image
-      debugger
       user.password = Devise.friendly_token[0, 20]
     end
   end

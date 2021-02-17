@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
-  <p>Test</p>
-  <p>Your new social network experience. Thanks for joining us <%= @user.name %></p>
-</body>
-</html>
+<section class="hero is-halfheight is-success has-text-centered">
+
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title">You're now part of Cosmos</p>
+      <p class="subtitle">Hip * Trendy * Fresh</p>
+    </div>
+  </div>
+</section>
+<section class="section has-background-light">
+  <div class="container has-text-centered">
+    <p>Thanks for joining us <strong><%= @user.name %></strong></p>
+    <p>You're free to express yourself here. Enjoy! ;)</p>
+  </div>
+</section>

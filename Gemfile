@@ -44,6 +44,7 @@ gem 'omniauth-facebook'
 
 gem 'omniauth-rails_csrf_protection'
 
+gem 'premailer-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

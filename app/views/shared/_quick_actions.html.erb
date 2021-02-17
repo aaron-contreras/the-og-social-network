@@ -3,6 +3,7 @@
   <ul class="menu-list">
     <li><%= link_to 'Post something', new_post_path, class: 'has-text-link' %></li>
     <li><%= link_to 'Find new friends', users_path, class: 'has-text-link' %></li>
+    <li><%= link_to 'Your friends', friendships_path, class: 'has-text-link' %></li>
     <li><%= link_to 'Your profile', user_path(current_user), class: 'has-text-link' %></li>
     <li><%= link_to 'Edit profile', edit_user_registration_path, class: 'has-text-link' %></li>
   </ul>

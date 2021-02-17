@@ -10,9 +10,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
 
-    if params[:post][:like_own_post] == '1'
-      @post.likes.build(user: current_user)
-    end
+    @post.auto_like if posted_with_auto_like?
 
     if @post.save
       flash[:notice] = 'Succesfully posted to feed.'
@@ -27,5 +25,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:user_id, :content)
+  end
+
+  def posted_with_auto_like?
+    params[:post][:like_own_post] == '1'
   end
 end

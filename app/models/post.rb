@@ -32,4 +32,8 @@ class Post < ApplicationRecord
   def feed_author_name(logged_in_user)
     author == logged_in_user ? 'You' : author.name
   end
+
+  def auto_like
+    self.likes.build(user: self.author) 
+  end
 end
