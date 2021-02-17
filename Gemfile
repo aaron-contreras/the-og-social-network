@@ -28,7 +28,6 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-gem 'devise'
 
 gem 'bulma-rails', '~> 0.9.1'
 
@@ -38,6 +37,12 @@ gem 'carrierwave'
 gem 'rmagick'
 
 gem 'figaro'
+
+gem 'devise', github: 'heartcombo/devise'
+
+gem 'omniauth-facebook'
+
+gem 'omniauth-rails_csrf_protection'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
