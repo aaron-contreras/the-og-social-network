@@ -38,6 +38,8 @@ class User < ApplicationRecord
   scope :not_including, ->(user) { where.not(id: user.id) }
   scope :friends_of, ->(user) { where(id: Friendship.where(user: user).pluck(:friend_id)) }
 
+  after_create :send_registration_email
+
   def self.create_from_provider_data(provider_data)
     where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do |user|
       user.email = provider_data.info.email
@@ -45,5 +47,11 @@ class User < ApplicationRecord
       user.remote_profile_picture_url = provider_data.info.image
       user.password = Devise.friendly_token[0, 20]
     end
+  end
+
+  private
+
+  def send_registration_email
+    RegistrationMailer.with(user: self).welcome_email.deliver_now
   end
 end
