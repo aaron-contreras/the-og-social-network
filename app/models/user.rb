@@ -27,10 +27,10 @@ class User < ApplicationRecord
          :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
   has_many :posts, dependent: :destroy
-  has_many :sent_requests, class_name: 'FriendRequest', foreign_key: 'sender_id'
-  has_many :received_requests, class_name: 'FriendRequest', foreign_key: 'recipient_id'
-  has_many :friendships
-  has_many :friends, through: :friendships
+  has_many :sent_requests, class_name: 'FriendRequest', foreign_key: 'sender_id', dependent: :destroy
+  has_many :received_requests, class_name: 'FriendRequest', foreign_key: 'recipient_id', dependent: :destroy
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships, dependent: :destroy
   mount_uploader :profile_picture, ProfilePictureUploader
 
   validates_presence_of :name

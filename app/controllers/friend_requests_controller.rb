@@ -11,7 +11,7 @@ class FriendRequestsController < ApplicationController
   end
 
   def destroy
-    @friend_request = FriendRequest.find(params[:friend_request_id])
+    @friend_request = FriendRequest.find(params[:id])
 
     if @friend_request.destroy
       flash[:notice] = 'Friend request cancelled.'

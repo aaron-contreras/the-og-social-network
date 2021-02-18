@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.delete_all
+User.skip_callback(:create, :after, :send_registration_email)
 
 test_user = User.create!(name: 'Example',
              email: 'example@example.com',
@@ -35,5 +36,4 @@ Post.all.each do |post|
     like.save!
   end
 end
-
 

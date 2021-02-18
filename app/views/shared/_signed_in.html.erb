@@ -20,17 +20,27 @@
       <% if current_user.received_requests.any? %>
         <% current_user.received_requests.each do |request| %>
           <div class="navbar-item">
-            <%= request.sender.name %> has sent a friend request
-            <%= form_tag friendships_path do %>
-              <%= hidden_field_tag :friend_request_id, request.id %>
-              <%= hidden_field_tag :friend_id, request.sender.id %>
-              <%= submit_tag 'Add friend' %>
-            <% end %>
-            <%= form_tag friendships_path do %>
-              <%= hidden_field_tag :friend_request_id, request.id %>
-              <%= hidden_field_tag :friend_id, request.sender.id %>
-              <%= submit_tag 'Add friend' %>
-            <% end %>
+            <div class="box">
+              Friend request from<br>
+              <strong><%= request.sender.name %></strong><br>
+              <div class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <%= form_tag friendships_path do %>
+                      <%= hidden_field_tag :friend_request_id, request.id %>
+                      <%= hidden_field_tag :friend_id, request.sender.id %>
+                      <%= submit_tag 'Add friend', class: 'button is-success is-small' %>
+                    <% end %>
+                  </div>
+                  <div class="level-item">
+                    <%= form_tag friend_request_path(request.id), method: :delete do %>
+                      <%= submit_tag 'Decline request', class: 'button is-danger is-small' %>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="level-right"></div>
+              </div>
+            </div>
           </div>
         <% end %>
       <% else %>
