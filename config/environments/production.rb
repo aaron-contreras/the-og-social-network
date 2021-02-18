@@ -62,16 +62,21 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "the_og_social_network_production"
 
-  config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'safe-fjord-64367.herokuapp.com',
-    user_name:            ENV['gmail_username'],
-    password:             ENV['gmail_password'],
-    authentication:       'plain',
-    enable_starttls_auto: true }
+  host = 'serene-fortress-48599.herokuapp.com'
+  config.action_mailer.default_url_options = { :host => host }  
+  config.action_mailer.delivery_method = :smtp  
+  config.action_mailer.perform_deliveries = true  
+
+  config.action_mailer.smtp_settings = {  
+    address: "smtp.gmail.com",
+    domain: host,
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true,
+    user_name: ENV["GMAIL_USERNAME"],
+    password: ENV["GMAIL_PASSWORD"]
+  }
+
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
